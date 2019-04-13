@@ -1,0 +1,50 @@
+{
+    "name": "@amjs/data-types",
+    "version": "0.1.0",
+    "description": "Data types for your OOP javascript project",
+    "scripts": {
+        "format": "prettier --config .prettierrc --write 'src/**/*.m?js'",
+        "lint": "eslint --fix --config .eslintrc.yml --ext .js src test",
+        "precommit": "lint-staged",
+        "test": "jest --coverage",
+        "doc": "jsdoc -c jsdoc.conf.json"
+    },
+    "keywords": [
+        "es6",
+        "javascript",
+        "cjs",
+        "oop",
+        "data",
+        "types"
+    ],
+    "author": "Arturo Martínez Díaz <arturo.mart.diaz@gmail.com>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:Wolfchamane/amjs-data-types.git"
+    },
+    "dependencies": {
+        "@amjs/factory": "^0.2.5"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.4.3",
+        "@babel/plugin-transform-modules-commonjs": "^7.4.3",
+        "@babel/preset-env": "^7.4.3",
+        "babel-eslint": "^10.0.1",
+        "babel-jest": "^24.7.1",
+        "eslint": "^4.15.0",
+        "eslint-friendly-formatter": "^3.0.0",
+        "eslint-plugin-vue": "^5.2.2",
+        "jest": "^24.7.1",
+        "jsdoc": "^3.5.5",
+        "lint-staged": "^7.0.4",
+        "prettier": "^1.13.7"
+    },
+    "lint-staged": {
+        "*.js": [
+            "prettier --config .prettierrc --write",
+            "eslint --fix --config .eslintrc.yml --ext .mjs",
+            "git add"
+        ]
+    }
+}
