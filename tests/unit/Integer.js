@@ -1,4 +1,5 @@
-const AmDataTypeBase = require('../../src/Base');
+const AmFactory         = require('@amjs/factory');
+const AmDataTypeBase    = require('../../src/Base');
 const AmDataTypeInteger = require('../../src/Integer');
 
 describe('AmDataTypeInteger - General', () =>
@@ -147,4 +148,10 @@ describe('AmDataTypeInteger - Methods', () =>
             }
         );
     });
+});
+
+describe('AmDataTypeInteger - Factory', () =>
+{
+    it('Is registered as "Integer"', () =>
+        expect(AmFactory.create('Integer')).toBeInstanceOf(AmDataTypeInteger));
 });
