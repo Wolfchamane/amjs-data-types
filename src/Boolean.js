@@ -1,23 +1,13 @@
-const AmDataTypeBase = require('./Base');
+const AmjsDataTypesBase = require('./Base');
 
 /**
- * Boolean data type
- * @namespace   am
- * @class       am.dataType.Boolean
- * @extends     am.dataType.Base
+ * Type boolean
+ * @namespace   amjs.dataTypes
+ * @class       amjs.dataTypes.Boolean
+ * @extends     amjs.dataTypes.Base
  */
-class AmDataTypeBoolean extends AmDataTypeBase
+class AmjsDataTypesTypeBoolean extends AmjsDataTypesBase
 {
-    /**
-     * Returns class constructor unique identifier key name.
-     * @return {String} 'am.dataType.Boolean'
-     * @constructor
-     */
-    static get KEY()
-    {
-        return 'am.dataType.Boolean';
-    }
-
     /**
      * @override
      */
@@ -27,8 +17,5 @@ class AmDataTypeBoolean extends AmDataTypeBase
     }
 }
 
-// ---------------------------------------------------------------
-// Class registration and export
-// ---------------------------------------------------------------
-AmDataTypeBase.register('Boolean', AmDataTypeBoolean);
-module.exports = AmDataTypeBoolean;
+AmjsDataTypesBase.register('Boolean', AmjsDataTypesTypeBoolean);
+module.exports = AmjsDataTypesTypeBoolean;
