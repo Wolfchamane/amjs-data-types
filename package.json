@@ -6,7 +6,7 @@
         "format": "prettier --config .prettierrc --write 'src/**/*.m?js'",
         "lint": "eslint --fix --config .eslintrc.yml --ext .js src test",
         "precommit": "lint-staged",
-        "test": "jest --coverage",
+        "test": "NODE_ENV=testing nyc node tests/index.js",
         "doc": "jsdoc -c jsdoc.conf.json"
     },
     "keywords": [
@@ -24,20 +24,21 @@
         "url": "git@github.com:Wolfchamane/amjs-data-types.git"
     },
     "dependencies": {
-        "@amjs/factory": "^0.2.5"
+        "@amjs/factory": "^0.2.6"
     },
     "devDependencies": {
-        "@babel/core": "^7.4.3",
-        "@babel/plugin-transform-modules-commonjs": "^7.4.3",
-        "@babel/preset-env": "^7.4.3",
+        "@babel/core": "^7.4.5",
+        "@babel/preset-env": "^7.4.5",
+        "@babel/register": "^7.4.4",
+        "@istanbuljs/nyc-config-babel": "^2.1.1",
         "babel-eslint": "^10.0.1",
-        "babel-jest": "^24.7.1",
+        "babel-plugin-istanbul": "^5.1.4",
         "eslint": "^4.15.0",
         "eslint-friendly-formatter": "^3.0.0",
         "eslint-plugin-vue": "^5.2.2",
-        "jest": "^24.7.1",
         "jsdoc": "^3.5.5",
         "lint-staged": "^7.0.4",
+        "nyc": "^14.1.1",
         "prettier": "^1.13.7"
     },
     "lint-staged": {

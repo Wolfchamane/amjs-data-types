@@ -1,0 +1,14 @@
+{
+    "source": {
+        "include": ["src/"],
+        "exclude": ["node_modules", "coverage", ".nyc_output", "tests"],
+        "includePattern": ".+\\.js$"
+    },
+    "sourceType": "module",
+    "opts": {
+        "destination": "docs"
+    },
+    "tags": {
+        "dictionaries": ["jsdoc"]
+    }
+}

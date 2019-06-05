@@ -1,8 +1,13 @@
 {
     "presets": [
-        "@babel/preset-env"
+        [
+            "@babel/env",
+            {
+                "targets": {
+                    "node": true
+                }
+            }
+        ]
     ],
-    "plugins": [
-        "@babel/plugin-transform-modules-commonjs"
-    ]
+    "plugins": ["istanbul"]
 }
