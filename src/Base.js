@@ -1,32 +1,13 @@
-const AmFactory = require('@amjs/factory');
+const AmjsFactory = require('@amjs/factory');
 
 /**
- * Parent class for any other data type class
- * @namespace   am.dataType
- * @class       am.dataType.Base
- * @requires    am.Factory
+ * Base class for any other within ORM
+ * @namespace   amjs.dataTypes
+ * @class       amjs.dataTypes.Base
+ * @extends     amjs.Factory
  */
-class AmDataTypeBase extends AmFactory
+class AmjsDataTypesBase extends AmjsFactory
 {
-
-    /**
-     * Stores instance value in "raw" format, without being parsed.
-     * @property    $raw
-     * @type        {*}
-     * @default     null
-     * @private
-     * @protected
-     */
-
-    /**
-     * Stores current instance value.
-     * @property    $value
-     * @type        {*}
-     * @default     null
-     * @private
-     * @protected
-     */
-
     /**
      * @constructor
      */
@@ -34,42 +15,30 @@ class AmDataTypeBase extends AmFactory
     {
         super();
 
-        // Define private properties
-        ['raw', 'value'].forEach(
-            key =>
-            {
-                Object.defineProperty(this, `$${key}`, {
-                    enumerable      : false,
-                    configurable    : false,
-                    writable        : true,
-                    value           : null
-                });
-            },
-            this
-        );
+        /**
+         * Raw value of this instance
+         * @property    $raw
+         * @type        {*}
+         * @default     null
+         * @private
+         * @protected
+         */
+
+        /**
+         * Current value of this instance
+         * @property    $value
+         * @type        {*}
+         * @default     null
+         * @private
+         * @protected
+         */
+
+        this._setPrivateProperties(['raw', 'value']);
     }
 
     /**
-     * Returns class constructor unique identifier key name.
-     * @return      {String}    'am.dataType.Base'
-     */
-    static get KEY()
-    {
-        return 'am.dataType.Base';
-    }
-
-    /**
-     * Returns factory reference in use.
-     * @return {am.AmFactory}   Factory
-     */
-    static get factory()
-    {
-        return AmFactory.i();
-    }
-
-    /**
-     * Returns current value.
-     * @return {*}  Value
+     * Returns current instance value
+     * @return {null} Current value
      */
     get value()
     {
@@ -77,8 +46,8 @@ class AmDataTypeBase extends AmFactory
     }
 
     /**
-     * Sets new value for this instance.
-     * @param {*}   value New value
+     * Sets current instance value
+     * @param   {*} value   New value
      */
     set value(value)
     {
@@ -87,9 +56,53 @@ class AmDataTypeBase extends AmFactory
     }
 
     /**
-     * Parses values in order to set its correct format.
-     * @param   {*} value New value to be parsed
-     * @return  {*} Value parsed
+     * Defines private & protected properties of this instance
+     * @param   {Array} props   Properties to be defined
+     * @private
+     */
+    _setPrivateProperties(props = [])
+    {
+        if (!Array.isArray(props))
+        {
+            props = [props];
+        }
+
+        props
+            .filter(item => typeof item === 'string')
+            .forEach(
+                prop =>
+                {
+                    Object.defineProperty(this, `$${prop}`, {
+                        configurable    : false,
+                        enumerable      : false,
+                        writable        : true,
+                        value           : null
+                    });
+                },
+                this
+            );
+    }
+
+    /**
+     * Sets the new values of all properties of this instance
+     * @param   {Object}    values  Values to be set
+     * @private
+     */
+    _setProperties(values = {})
+    {
+        Object.keys(values).forEach(key =>
+        {
+            if (key in this && !key.startsWith('$'))
+            {
+                this[key] = values[key];
+            }
+        }, this);
+    }
+
+    /**
+     * Returns the parsed value of this instance
+     * @param   {*} value   Raw value
+     * @return  {*} Parsed value
      * @private
      */
     _parseValue(value)
@@ -98,8 +111,8 @@ class AmDataTypeBase extends AmFactory
     }
 
     /**
-     * Returns raw original value of this instance.
-     * @return {*}  Raw value
+     * Returns raw value of this instance
+     * @return {*} Raw value
      */
     raw()
     {
@@ -107,19 +120,16 @@ class AmDataTypeBase extends AmFactory
     }
 
     /**
-     * Returns this instance value as {String} or object representation name.
-     * @return  {String}     Instance value o '[object *]'
+     * Converse current value to its string format
+     * @return {String}    Current value as String
      */
     toString()
     {
-        const value = this.value;
+        const value = this.$value;
 
-        return value ? value.toString() : `[object ${this.constructor.KEY}]`;
+        return value ? this.$value.toString() : '[object Base]';
     }
 }
 
-// ---------------------------------------------------------------
-// Class registration and export
-// ---------------------------------------------------------------
-AmFactory.register('Base', AmDataTypeBase);
-module.exports = AmDataTypeBase;
+AmjsFactory.register('Base', AmjsDataTypesBase);
+module.exports = AmjsDataTypesBase;

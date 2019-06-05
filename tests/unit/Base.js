@@ -1,103 +1,66 @@
-const AmDataTypeBase    = require('../../src/Base');
-const AmFactory         = require('@amjs/factory');
+const AmjsDataTypesBase = require('../../src/Base');
+const AmjsFactory       = require('@amjs/factory');
+const assert            = require('assert');
 
-describe('AmDataTypeBase - General', () =>
-{
-    let sut;
-    beforeEach(() => sut = new AmDataTypeBase());
+const sut = AmjsFactory.create('Base', {});
+const values = [
+    null,
+    undefined,
+    {},
+    [],
+    true,
+    false,
+    1,
+    0,
+    NaN,
+    'foo'
+];
 
-    it('Extends AmFactory', () =>
-        expect(sut).toBeInstanceOf(AmFactory));
+assert.equal(
+    sut instanceof AmjsDataTypesBase,
+    true,
+    'Is registered as "Base"');
+assert.equal(
+    sut.$value === null,
+    true,
+    'By default, "$value" is "null"'
+);
+assert.equal(
+    sut.$raw === null,
+    true,
+    'By default, "$raw" is "null"'
+);
 
-    it('Has now public properties', () =>
-        expect(Object.keys(sut).length).toBe(0));
+assert.equal(sut.value, null, 'value @getter returns "null" by default');
+sut.value = 'foo';
+assert.equal(sut.value, 'foo', 'value @setter works as expected');
 
-    it('Has both $raw and $value private properties', () =>
-        ['raw', 'value'].forEach(
-            key =>
-                expect(sut.hasOwnProperty(`$${key}`)).toBe(true)));
-
-    it('KEY is "am.dataType.Base"', () => expect(sut.constructor.KEY).toEqual('am.dataType.Base'));
-
-    it('factory is instance in use of AmFactory', () =>
-        expect(sut.constructor.factory).toBeInstanceOf(AmFactory));
-});
-
-describe('AmDataTypeBase - Value', () =>
-{
-    let sut;
-    beforeEach(() => sut = new AmDataTypeBase());
-
-    it('Setting new value calls "_parseValue" method', () =>
+values.forEach(
+    value =>
     {
-        const stub = jest.fn();
-        sut._parseValue = stub;
+        sut._setPrivateProperties(value);
+        const result = typeof value === 'string';
+        assert.equal(sut[`${value}`], result ? undefined : null, `Value ${value} is set as private property: ${result}`);
+    }
+);
 
-        sut.value = 'foo';
-        expect(stub).toHaveBeenCalled();
-    });
+sut._setProperties();
+assert.equal(sut.value, 'foo', '_setProperties() coverage');
+sut._setProperties({ '$value' : 'foo', 'value' : 'bar' });
+assert.equal(sut.value, 'bar', '_setProperties({}) don\'t set private properties values');
 
-    it('Setting new value saves itself into "$raw" private property', () =>
+assert.equal(sut._parseValue(), undefined, '_parseValue() by default returns "undefined"');
+assert.equal(sut._parseValue(1), 1, '_parseValue(1) by default returns arg value');
+
+assert.equal(sut.raw(), sut.$raw, 'raw() returns the value of "$raw"');
+
+sut.value = null;
+assert.equal(sut.toString(), '[object Base]', 'toString() by default returns "[object Base]"');
+values.forEach(
+    value =>
     {
-        sut.value = 'foo';
-        expect(sut.$raw).toEqual('foo');
-    });
-
-    it('Setting new value saves itself into "$value" private property', () =>
-    {
-        sut.value = 'foo';
-        expect(sut.$value).toEqual('foo');
-    });
-
-    it('getter value returns current value', () =>
-    {
-        sut.value = 'foo';
-        expect(sut.value).toEqual('foo');
-    });
-
-    it('_parseValue by default returns the new value as it is', () =>
-        expect(sut._parseValue('foo')).toEqual('foo'));
-});
-
-describe('AmDataTypeBase - Methods', () =>
-{
-    let sut;
-    beforeEach(() => sut = new AmDataTypeBase());
-
-    it('raw() returns current raw value', () =>
-    {
-        sut.value = 'foo';
-        expect(sut.raw()).toEqual('foo');
-    });
-
-    describe('toString()', () =>
-    {
-        it('By default returns "[object am.dataType.Base]"', () =>
-            expect(sut.toString()).toEqual('[object am.dataType.Base]'));
-
-        [
-            {},
-            1,
-            true,
-            [],
-            null,
-            undefined
-        ].forEach(
-            value =>
-            {
-                const expected = value ? value.toString() : `[object ${AmDataTypeBase.KEY}]`;
-                it(`For value "${value}" returns "${expected}"`, () =>
-                {
-                    sut.value = value;
-                    expect(sut.toString()).toEqual(expected);
-                });
-            }
-        );
-    });
-});
-
-describe('AmDataTypeBase - Factory', () =>
-{
-    it('Is registered as "Base"', () =>
-        expect(AmFactory.i().constructor.create('Base')).toBeInstanceOf(AmDataTypeBase));
-});
+        sut.value = value;
+        const result = value ? value.toString() : '[object Base]';
+        assert.equal(sut.toString(), result, `Defining value as "${value}", toString() returns "${result}"`);
+    }
+);
