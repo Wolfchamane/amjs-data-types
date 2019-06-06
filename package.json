@@ -6,8 +6,7 @@
         "format": "prettier --config .prettierrc --write 'src/**/*.m?js'",
         "lint": "eslint --fix --config .eslintrc.yml --ext .js src test",
         "precommit": "lint-staged",
-        "test": "NODE_ENV=testing nyc node tests/index.js",
-        "doc": "jsdoc -c jsdoc.conf.json"
+        "test": "NODE_ENV=testing nyc node tests/index.js"
     },
     "keywords": [
         "es6",
@@ -17,6 +16,7 @@
         "data",
         "types"
     ],
+    "main": "index.js",
     "author": "Arturo Martínez Díaz <arturo.mart.diaz@gmail.com>",
     "license": "MIT",
     "repository": {
@@ -36,7 +36,6 @@
         "eslint": "^4.15.0",
         "eslint-friendly-formatter": "^3.0.0",
         "eslint-plugin-vue": "^5.2.2",
-        "jsdoc": "^3.5.5",
         "lint-staged": "^7.0.4",
         "nyc": "^14.1.1",
         "prettier": "^1.13.7"
