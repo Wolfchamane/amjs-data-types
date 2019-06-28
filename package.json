@@ -6,7 +6,9 @@
         "format": "prettier --config .prettierrc --write 'src/**/*.m?js'",
         "lint": "eslint --fix --config .eslintrc.yml --ext .js src test",
         "precommit": "lint-staged",
-        "test": "NODE_ENV=testing nyc node tests/index.js"
+        "test": "NODE_ENV=testing nyc node tests/index.js",
+        "doc": "node scripts/doc.js",
+        "index": "node node_modules/@amjs/create-index src"
     },
     "keywords": [
         "es6",
@@ -16,7 +18,7 @@
         "data",
         "types"
     ],
-    "main": "index.js",
+    "main": "build/index.js",
     "author": "Arturo Martínez Díaz <arturo.mart.diaz@gmail.com>",
     "license": "MIT",
     "repository": {
@@ -24,18 +26,23 @@
         "url": "git@github.com:Wolfchamane/amjs-data-types.git"
     },
     "dependencies": {
+        "@amjs/create-index": "^0.1.2",
         "@amjs/factory": "^0.2.6"
     },
     "devDependencies": {
+        "@amjs/templater": "^0.1.1",
         "@babel/core": "^7.4.5",
         "@babel/preset-env": "^7.4.5",
         "@babel/register": "^7.4.4",
         "@istanbuljs/nyc-config-babel": "^2.1.1",
+        "atob": "^2.1.2",
         "babel-eslint": "^10.0.1",
         "babel-plugin-istanbul": "^5.1.4",
+        "btoa": "^1.2.1",
         "eslint": "^4.15.0",
         "eslint-friendly-formatter": "^3.0.0",
         "eslint-plugin-vue": "^5.2.2",
+        "jsdom": "^15.1.1",
         "lint-staged": "^7.0.4",
         "nyc": "^14.1.1",
         "prettier": "^1.13.7"
