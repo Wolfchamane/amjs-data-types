@@ -48,10 +48,10 @@ require('@amjs/data-types/src/Date');
 require('@amjs/data-types/src/Password');
 require('@amjs/data-types/src/String');
 // Requires parent Object class
-const { Object } = require('@amjs/data-types');
+const AmjsDataTypesObject = require('@amjs/data-types/src/Object');
 
 // Extend User from Object
-class User extends Object
+class User extends AmjsDataTypesObject
 {
     constructor(values)
     {
@@ -89,7 +89,7 @@ class User extends Object
 };
 
 // Register User constructor (optional)
-Object.register('User', User);
+AmjsDataTypesObject.register('User', User);
 
 const values = { pwd : '123456', userName : 'Mr. User', dob: '1989-02-03' };
 
@@ -97,7 +97,7 @@ const values = { pwd : '123456', userName : 'Mr. User', dob: '1989-02-03' };
 const user = new User();
 
 // Factory creation
-const user = Object.create('User', values);
+const user = AmjsDataTypesObject.create('User', values);
 
 console.log(user.toJSON()); // { name : 'Mr. User', birth : '1989-02-03' }
 ```
