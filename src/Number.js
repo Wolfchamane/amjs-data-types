@@ -13,7 +13,7 @@ class AmjsDataTypesTypeNumber extends AmjsDataTypesBase
      */
     _parseValue(value)
     {
-        if (value && typeof value !== 'number')
+        if (value !== null && typeof value !== 'undefined' && typeof value !== 'number')
         {
             value = Number(value);
         }

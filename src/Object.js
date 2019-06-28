@@ -8,31 +8,44 @@ const AmjsDataTypesBase = require('./Base');
  */
 class AmjsDataTypesTypeObject extends AmjsDataTypesBase
 {
-
     /**
-     * @constructor
+     * @inheritDoc
      */
-    constructor()
+    constructor(values)
     {
         super();
 
+        this._setPrivateProperties(['privateProperties', 'propertyTypes', 'propertyMap', 'useMap']);
+
         /**
-         * Types of this object proeperties
+         * Map of properties that could be "private", excluding them from 'toJSON()' response
+         * @property    $privateProperties
+         * @type        {Object}
+         * @default     {}
+         * @private
+         * @protected
+         */
+        this.$privateProperties = {};
+
+        /**
+         * Types of this object properties
          * @property    $propertyTypes
          * @type        {Object}
          * @default     {}
          * @private
          * @protected
          */
+        this.$propertyTypes = {};
 
         /**
-         * Map of service's reponse properties to this instance properties
+         * Map of value's properties assigned with this instance properties.
          * @property    $propertyMap
          * @type        {Object}
          * @default     {}
          * @private
          * @protected
          */
+        this.$propertyMap = {};
 
         /**
          * Whether to use or not property map
@@ -42,11 +55,9 @@ class AmjsDataTypesTypeObject extends AmjsDataTypesBase
          * @private
          * @protected
          */
-
-        this._setPrivateProperties(['propertyTypes', 'propertyMap', 'useMap']);
-        this.$propertyTypes = {};
-        this.$propertyMap = {};
         this.$useMap = false;
+
+        this._setProperties(values);
     }
 
     /**
@@ -56,27 +67,67 @@ class AmjsDataTypesTypeObject extends AmjsDataTypesBase
     {
         this.$raw = JSON.parse(JSON.stringify(values));
 
+        const parsed = {};
         Object.keys(values).forEach(
             key =>
             {
                 const value         = values[key];
-                key                 = this.$useMap ? this.$propertyMap[key] : key;
-                const type          = this.$propertyTypes[key];
-                // Using wildcard '*' will assign value without any class type
-                if (type === '*')
+                key                 = (this.$useMap && this.$propertyMap[key]) || key;
+                const type          = this.$propertyTypes[key] || '*';
+                switch (type)
                 {
-                    values[key] = value;
-                }
-                else
-                {
-                    values[key]         = this.constructor.create(type);
-                    values[key].value   = value;
+                    // Complex case
+                    // @todo: case 'Array':
+                    // @todo: case 'Collection':
+                    case 'Object':
+                        parsed[key] = this.constructor.create(type, value);
+                        break;
+                    // Wildcard '*' assigns value without any class type
+                    case '*':
+                        parsed[key] = value;
+                        break;
+                    // Default data type
+                    default:
+                        parsed[key] = this.constructor.create(type);
+                        parsed[key].value = value;
                 }
             },
             this
         );
 
-        super._setProperties(values);
+        super._setProperties(parsed);
+    }
+
+    /**
+     * Handles dot notation access to inner references of this instance.
+     * @param   {Object}    ref     Original root reference
+     * @param   {String}    prop    Dot-notation property to access
+     * @param   {*}         value   (optional) value to assign
+     * @return  {Object}    Last value or reference obtained from dot-prop chain
+     * @private
+     */
+    _dotProp(ref = {}, prop = '', value)
+    {
+        if (prop.lastIndexOf('.') !== -1)
+        {
+            prop = prop.split('.');
+            while (prop.length >= 2)
+            {
+                ref = ref[prop.shift()];
+            }
+            prop = prop.pop();
+        }
+
+        if (value)
+        {
+            ref[prop] = value;
+        }
+        else
+        {
+            ref = ref[prop];
+        }
+
+        return ref;
     }
 
     /**
@@ -86,22 +137,7 @@ class AmjsDataTypesTypeObject extends AmjsDataTypesBase
      */
     get(prop = '')
     {
-        let value;
-        if (prop.lastIndexOf('.') !== -1)
-        {
-            prop = prop.split('.');
-            const ref = this[prop.shift()];
-            if (ref)
-            {
-                value = this.get.call(ref, prop.join('.'));
-            }
-        }
-        else
-        {
-            value = this[prop];
-        }
-
-        return value;
+        return this._dotProp(this, prop);
     }
 
     /**
@@ -111,19 +147,7 @@ class AmjsDataTypesTypeObject extends AmjsDataTypesBase
      */
     set(prop = '', value)
     {
-        if (prop.lastIndexOf('.') !== -1)
-        {
-            prop = prop.split('.');
-            const ref = this[prop.shift()];
-            if (ref)
-            {
-                this.set.call(ref, prop.join('.'), value);
-            }
-        }
-        else if (prop in this)
-        {
-            this[prop] = value;
-        }
+        this._dotProp(this, prop, value);
     }
 
     /**
@@ -137,14 +161,15 @@ class AmjsDataTypesTypeObject extends AmjsDataTypesBase
         Object.keys(this).forEach(
             key =>
             {
-                const value = this[key];
-                json[key] = $factory.is('Object', value)
-                    ? value.toJSON()
-                    : $factory.is('Base', value)
-                        ? $factory.is('Password', value)
-                            ? value.toString()
-                            : value.value
-                        : value;
+                if (!this.$privateProperties[key])
+                {
+                    const value = this[key];
+                    json[key] = $factory.is('Object', value)
+                        ? value.toJSON()
+                        : $factory.is('Base', value)
+                            ? value.value
+                            : value;
+                }
             },
             this
         );

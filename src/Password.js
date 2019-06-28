@@ -13,12 +13,7 @@ class AmjsDataTypesTypePassword extends AmjsDataTypesTypeString
      */
     _parseValue(value)
     {
-        if (value && typeof value === 'string')
-        {
-            value = window.btoa(value);
-        }
-
-        return super._parseValue(value);
+        return window.btoa(super._parseValue(value));
     }
 
     /**

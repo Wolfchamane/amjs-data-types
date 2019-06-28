@@ -10,8 +10,9 @@ class AmjsDataTypesBase extends AmjsFactory
 {
     /**
      * @constructor
+     * @param   {*} values  Instance values
      */
-    constructor()
+    constructor(values)
     {
         super();
 
@@ -34,6 +35,7 @@ class AmjsDataTypesBase extends AmjsFactory
          */
 
         this._setPrivateProperties(['raw', 'value']);
+        this._setProperties(values);
     }
 
     /**
@@ -92,7 +94,7 @@ class AmjsDataTypesBase extends AmjsFactory
     {
         Object.keys(values).forEach(key =>
         {
-            if (key in this && !key.startsWith('$'))
+            if (key in this && !key.startsWith('$') && typeof this[key] !== 'function')
             {
                 this[key] = values[key];
             }
