@@ -9,7 +9,6 @@
 ```bash
 $ npm i @amjs/data-types
 ```
-
 ## Usage
 
 Can be use directly:

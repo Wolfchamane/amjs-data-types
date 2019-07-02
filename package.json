@@ -7,7 +7,7 @@
         "lint": "eslint --fix --config .eslintrc.yml --ext .js src test",
         "precommit": "lint-staged",
         "test": "NODE_ENV=testing nyc node tests/index.js",
-        "doc": "node scripts/doc.js",
+        "doc": "node node_modules/@amjs/create-readme --d docs",
         "index": "node node_modules/@amjs/create-index src"
     },
     "keywords": [
@@ -30,6 +30,7 @@
         "@amjs/factory": "^0.2.6"
     },
     "devDependencies": {
+        "@amjs/create-readme": "^0.1.0",
         "@amjs/templater": "^0.1.1",
         "@babel/core": "^7.4.5",
         "@babel/preset-env": "^7.4.5",
