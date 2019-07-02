@@ -46,3 +46,12 @@ function testParseValue()
 
 testRegistrationName();
 testParseValue();
+
+(function()
+{
+    const sut = AmjsFactory.create('String');
+    assert.equal(sut.toString() === '', true, 'By default, toString() returns ""');
+
+    sut.value = 'My value';
+    assert.equal(sut.toString() === 'My value', true, 'Returns string value');
+}());

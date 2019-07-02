@@ -20,6 +20,14 @@ class AmjsDataTypesTypeString extends AmjsDataTypesBase
 
         return super._parseValue(value);
     }
+
+    /**
+     * @override
+     */
+    toString()
+    {
+        return this.value || '';
+    }
 }
 
 AmjsDataTypesBase.register('String', AmjsDataTypesTypeString);
