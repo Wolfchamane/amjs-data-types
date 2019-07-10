@@ -8,11 +8,15 @@ const AmjsDataTypesArray = require('./Array');
  */
 class AmjsDataTypesCollection extends AmjsDataTypesArray
 {
-    /**
-     *
-     * @type {string}
-     */
-    static itemType = 'Object';
+    constructor(values)
+    {
+        super();
+
+        this._setPrivateProperties(['itemType']);
+        this.$itemType = 'Object';
+
+        this.value = values;
+    }
 
     /**
      * @override
@@ -22,7 +26,7 @@ class AmjsDataTypesCollection extends AmjsDataTypesArray
         if (Array.isArray(values))
         {
             this.$raw = JSON.parse(JSON.stringify(values));
-            const type = this.constructor.itemType;
+            const type = this.$itemType;
             values = values.map(value => AmjsDataTypesArray.create(type, value));
         }
 

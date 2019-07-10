@@ -55,7 +55,12 @@ const AmjsFactory               = require('@amjs/factory');
      */
     class MyCollection extends AmjsDataTypesCollection
     {
-        static itemType = 'MyObject';
+        constructor(values)
+        {
+            super();
+            this.$itemType = 'MyObject';
+            this.value = values;
+        }
     }
 
     AmjsFactory.register('MyObject', MyObject);
@@ -64,5 +69,6 @@ const AmjsFactory               = require('@amjs/factory');
     const sut = new MyCollection(values);
     equal(Array.isArray(sut.value), true, 'AmjsDataTypesCollection > value > is an array');
     equal(values.length === sut.value.length, true, 'AmjsDataTypesCollection > value > has expected length');
-    sut.value.forEach(item => equal(item instanceof MyObject, true, 'AmjsDataTypesCollection > value > is of expected type'));
+    sut.value.forEach(item => equal(item instanceof MyObject, true,
+        'AmjsDataTypesCollection > value > is of expected type'));
 }());
