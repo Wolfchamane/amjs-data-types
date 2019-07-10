@@ -10,7 +10,6 @@
         ]
     ],
     "plugins": [
-        "istanbul",
-        "@babel/plugin-proposal-class-properties"
+        "istanbul"
     ]
 }
