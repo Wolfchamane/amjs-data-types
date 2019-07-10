@@ -1,4 +1,6 @@
+const AmjsDataTypesArray   = require('../../src/Array');
 const AmjsDataTypesBoolean   = require('../../src/Boolean');
+const AmjsDataTypesCollection   = require('../../src/Collection');
 const AmjsDataTypesDate      = require('../../src/Date');
 const AmjsDataTypesNumber   = require('../../src/Number');
 const AmjsDataTypesString   = require('../../src/String');
@@ -33,21 +35,27 @@ const assert                = require('assert');
 (function()
 {
     const sut = AmjsFactory.create('Object');
+    sut.arr = null;
     sut.bol = null;
+    sut.col = null;
     sut.dat = null;
     sut.num = null;
     sut.obj = null;
     sut.str = null;
     sut.oth = null;
     sut.$propertyTypes = {
+        arr : 'Array',
         bol : 'Boolean',
+        col : 'Collection',
         dat : 'Date',
         num : 'Number',
         obj : 'Object',
         str : 'String',
     };
     sut.$propertyMap = {
+        'array'     : 'arr',
         'bool'      : 'bol',
+        'collection': 'col',
         'date'      : 'dat',
         'number'    : 'num',
         'object'    : 'obj',
@@ -55,14 +63,18 @@ const assert                = require('assert');
     };
     sut.$useMap = true;
     sut._setProperties({
+        'array'     : [1, 2, 3],
         'bool'      : true,
+        'collection': [],
         'date'      : '2000-01-01T00:00:00.000',
         'number'    : 1,
         'object'    : {},
         'string'    : 'foo',
         'oth'       : 'as-it-goes'
     });
+    assert.equal(sut.arr instanceof AmjsDataTypesArray, true, `Array property type is created as AmjsDataTypesArray`);
     assert.equal(sut.bol instanceof AmjsDataTypesBoolean, true, `Boolean property type is created as AmjsDataTypesBoolean`);
+    assert.equal(sut.col instanceof AmjsDataTypesCollection, true, `Collection property type is created as AmjsDataTypesCollection`);
     assert.equal(sut.dat instanceof AmjsDataTypesDate, true, `Boolean property type is created as AmjsDataTypesDate`);
     assert.equal(sut.num instanceof AmjsDataTypesNumber, true, `Boolean property type is created as AmjsDataTypesNumber`);
     assert.equal(sut.obj instanceof AmjsDataTypesObject, true, `Boolean property type is created as AmjsDataTypesObject`);

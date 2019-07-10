@@ -77,8 +77,8 @@ class AmjsDataTypesTypeObject extends AmjsDataTypesBase
                 switch (type)
                 {
                     // Complex case
-                    // @todo: case 'Array':
-                    // @todo: case 'Collection':
+                    case 'Array':
+                    case 'Collection':
                     case 'Object':
                         parsed[key] = this.constructor.create(type, value);
                         break;
