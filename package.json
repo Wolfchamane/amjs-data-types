@@ -18,7 +18,7 @@
         "data",
         "types"
     ],
-    "main": "build/index.js",
+    "main": "index.js",
     "author": "Arturo Martínez Díaz <arturo.mart.diaz@gmail.com>",
     "license": "MIT",
     "repository": {
@@ -33,6 +33,7 @@
         "@amjs/create-readme": "^0.1.0",
         "@amjs/templater": "^0.1.1",
         "@babel/core": "^7.4.5",
+        "@babel/plugin-proposal-class-properties": "^7.5.0",
         "@babel/preset-env": "^7.4.5",
         "@babel/register": "^7.4.4",
         "@istanbuljs/nyc-config-babel": "^2.1.1",
