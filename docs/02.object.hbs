@@ -1,33 +1,3 @@
-## Usage
-
-Can be use directly:
-```javascript
-// some.js file
-const AmjsDataTypes = require('@amjs/data-types');
-const str = new AmjsDataTypes.String();
-str.value = 'My Awesome String';
-
-console.log(str.value); // My Awesome String
-```
-
-Can be extended:
-```javascript
-// MyString.js
-const AmjsDataTypesString = require('@amjs/data-types/src/String');
-module.exports = class MyString extends AmjsDataTypesString
-{
-    welcome(name = '')
-    {
-        this.value = `Welcome ${user}`;
-    }
-}
-```
-
-__NOTICE__: in both examples CommonJS architecture + ES6 syntax is being used,
-if its planned to use this ORM solution for web project,
-is suggested to use [@babel/plugin-transform-modules-commonjs](https://babeljs.io/docs/en/babel-plugin-transform-modules-commonjs)
-to transpile files properly.
-
 #### Working with Object data type
 
 ```javascript
@@ -36,7 +6,7 @@ require('@amjs/data-types/src/Date');
 require('@amjs/data-types/src/Password');
 require('@amjs/data-types/src/String');
 // Requires parent Object class
-const AmjsDataTypesObject = require('@amjs/data-types/src/Object');
+const {AmjsDataTypesObject} = require('@amjs/data-types');
 
 // Extend User from Object
 class User extends AmjsDataTypesObject

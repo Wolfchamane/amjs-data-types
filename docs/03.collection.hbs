@@ -1,0 +1,42 @@
+### Working with Collection data types
+
+```javascript
+
+const { AmjsDataTypesCollection, AmjsDataTypesObject } = require('@amjs/data-types');
+
+// Create (optional) & pre-register your item type class reference.
+class MyObject extends AmjsDataTypesObject
+{
+    constructor(values)
+    {
+        super();
+
+        /**
+        * @override
+        */
+        this.$propertyTypes = {
+            key : '*'
+        };
+
+        this.key = null;
+
+        this._setProperties(values);
+    }
+}
+
+AmjsDataTypesObject.register('MyObject', MyObject);
+
+// Create a collection which "itemType" property is your new item type class
+class MyCollection extends AmjsDataTypesCollection
+{
+    /**
+     * @override
+     */
+    static itemType = 'MyObject';
+}
+
+const values = [{ key : 'value1' }, { key : 'value2' }, { key: 'value3' }];
+const sut = new MyCollection(values);
+console.log(sut.value); // [ MyObject { key: 'value1' }, MyObject { key: 'value2' }, MyObject { key: 'value3' } ]
+```
+

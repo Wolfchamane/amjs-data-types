@@ -1,4 +1,4 @@
-# @amjs/data-types 0.1.1
+# @amjs/data-types 0.1.2
 
 ![Statements](https://img.shields.io/badge/Statements-100%25-brightgreen.svg) ![Branches](https://img.shields.io/badge/Branches-100%25-brightgreen.svg) ![Functions](https://img.shields.io/badge/Functions-100%25-brightgreen.svg) ![Lines](https://img.shields.io/badge/Lines-100%25-brightgreen.svg)
 
@@ -15,7 +15,16 @@ Can be use directly:
 ```javascript
 // some.js file
 const AmjsDataTypes = require('@amjs/data-types');
-const str = new AmjsDataTypes.String();
+const str = new AmjsDataTypes.AmjsDataTypesString();
+str.value = 'My Awesome String';
+
+console.log(str.value); // My Awesome String
+```
+
+Can be de-constructed:
+```javascript
+const { AmjsDataTypesString } = require('@amjs/data-types');
+const str = new AmjsDataTypesString();
 str.value = 'My Awesome String';
 
 console.log(str.value); // My Awesome String
@@ -34,11 +43,10 @@ module.exports = class MyString extends AmjsDataTypesString
 }
 ```
 
-__NOTICE__: in both examples CommonJS architecture + ES6 syntax is being used,
+__NOTICE__: in those examples CommonJS architecture + ES6 syntax is being used,
 if its planned to use this ORM solution for web project,
-is suggested to use [@babel/plugin-transform-modules-commonjs](https://babeljs.io/docs/en/babel-plugin-transform-modules-commonjs)
+is suggested to use [@babel](https://babeljs.io)
 to transpile files properly.
-
 #### Working with Object data type
 
 ```javascript
@@ -47,7 +55,7 @@ require('@amjs/data-types/src/Date');
 require('@amjs/data-types/src/Password');
 require('@amjs/data-types/src/String');
 // Requires parent Object class
-const AmjsDataTypesObject = require('@amjs/data-types/src/Object');
+const {AmjsDataTypesObject} = require('@amjs/data-types');
 
 // Extend User from Object
 class User extends AmjsDataTypesObject
@@ -100,3 +108,45 @@ const user = AmjsDataTypesObject.create('User', values);
 
 console.log(user.toJSON()); // { name : 'Mr. User', birth : '1989-02-03' }
 ```
+### Working with Collection data types
+
+```javascript
+
+const { AmjsDataTypesCollection, AmjsDataTypesObject } = require('@amjs/data-types');
+
+// Create (optional) & pre-register your item type class reference.
+class MyObject extends AmjsDataTypesObject
+{
+    constructor(values)
+    {
+        super();
+
+        /**
+        * @override
+        */
+        this.$propertyTypes = {
+            key : '*'
+        };
+
+        this.key = null;
+
+        this._setProperties(values);
+    }
+}
+
+AmjsDataTypesObject.register('MyObject', MyObject);
+
+// Create a collection which "itemType" property is your new item type class
+class MyCollection extends AmjsDataTypesCollection
+{
+    /**
+     * @override
+     */
+    static itemType = 'MyObject';
+}
+
+const values = [{ key : 'value1' }, { key : 'value2' }, { key: 'value3' }];
+const sut = new MyCollection(values);
+console.log(sut.value); // [ MyObject { key: 'value1' }, MyObject { key: 'value2' }, MyObject { key: 'value3' } ]
+```
+

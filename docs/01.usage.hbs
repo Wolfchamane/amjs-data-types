@@ -1,0 +1,38 @@
+## Usage
+
+Can be use directly:
+```javascript
+// some.js file
+const AmjsDataTypes = require('@amjs/data-types');
+const str = new AmjsDataTypes.AmjsDataTypesString();
+str.value = 'My Awesome String';
+
+console.log(str.value); // My Awesome String
+```
+
+Can be de-constructed:
+```javascript
+const { AmjsDataTypesString } = require('@amjs/data-types');
+const str = new AmjsDataTypesString();
+str.value = 'My Awesome String';
+
+console.log(str.value); // My Awesome String
+```
+
+Can be extended:
+```javascript
+// MyString.js
+const AmjsDataTypesString = require('@amjs/data-types/src/String');
+module.exports = class MyString extends AmjsDataTypesString
+{
+    welcome(name = '')
+    {
+        this.value = `Welcome ${user}`;
+    }
+}
+```
+
+__NOTICE__: in those examples CommonJS architecture + ES6 syntax is being used,
+if its planned to use this ORM solution for web project,
+is suggested to use [@babel](https://babeljs.io)
+to transpile files properly.
