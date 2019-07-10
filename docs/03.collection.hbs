@@ -29,10 +29,12 @@ AmjsDataTypesObject.register('MyObject', MyObject);
 // Create a collection which "itemType" property is your new item type class
 class MyCollection extends AmjsDataTypesCollection
 {
-    /**
-     * @override
-     */
-    static itemType = 'MyObject';
+    constructor(values)
+    {
+        super();
+        this.$itemType = 'MyObject';
+        this.value = values;
+    }
 }
 
 const values = [{ key : 'value1' }, { key : 'value2' }, { key: 'value3' }];

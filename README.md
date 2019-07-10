@@ -1,4 +1,4 @@
-# @amjs/data-types 0.1.2
+# @amjs/data-types 0.1.3
 
 ![Statements](https://img.shields.io/badge/Statements-100%25-brightgreen.svg) ![Branches](https://img.shields.io/badge/Branches-100%25-brightgreen.svg) ![Functions](https://img.shields.io/badge/Functions-100%25-brightgreen.svg) ![Lines](https://img.shields.io/badge/Lines-100%25-brightgreen.svg)
 
@@ -139,10 +139,12 @@ AmjsDataTypesObject.register('MyObject', MyObject);
 // Create a collection which "itemType" property is your new item type class
 class MyCollection extends AmjsDataTypesCollection
 {
-    /**
-     * @override
-     */
-    static itemType = 'MyObject';
+    constructor(values)
+    {
+        super();
+        this.$itemType = 'MyObject';
+        this.value = values;
+    }
 }
 
 const values = [{ key : 'value1' }, { key : 'value2' }, { key: 'value3' }];
