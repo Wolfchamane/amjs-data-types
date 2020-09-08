@@ -1,6 +1,6 @@
 {
     "name": "@amjs/data-types",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "Data types for your OOP javascript project",
     "scripts": {
         "format": "prettier --config .prettierrc --write 'src/**/*.m?js'",
