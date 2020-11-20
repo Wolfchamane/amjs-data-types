@@ -12,7 +12,7 @@ const AmjsDataTypesString = require('./src/String.js');
 /**
  * @NOTICE: File auto-generated. DO NOT modify this file.
  * @author  Arturo Martínez Díaz &lt;arturo.mart.diaz@gmail.com&gt;
- * @version 0.1.6
+ * @version 0.1.7
  * @license MIT
  * @created 2020-11-20T06:53:48.830Z
  */
