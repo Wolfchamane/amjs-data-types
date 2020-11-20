@@ -79,10 +79,11 @@ class AmjsDataTypesTypeObject extends AmjsDataTypesBase
                     // Complex case
                     case 'Array':
                     case 'Collection':
+                    case 'Money':
                     case 'Object':
                         parsed[key] = this.constructor.create(type, value);
                         break;
-                    // Wildcard '*' assigns value without any class type
+                    // Wildcard assigns value without any class type
                     case '*':
                         parsed[key] = value;
                         break;
