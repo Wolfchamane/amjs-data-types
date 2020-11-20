@@ -9,6 +9,37 @@ const AmjsDataTypesBase = require('./Base');
 class AmjsDataTypesTypeNumber extends AmjsDataTypesBase
 {
     /**
+     * @constructor
+     * @inheritDoc
+     */
+    constructor(...args)
+    {
+        super();
+
+        this.precision = 2;
+
+        this._setProperties(...args);
+    }
+
+    /**
+     * @getter  integer
+     * @return  {String} Integer part of this number
+     */
+    get integer()
+    {
+        return `${Math.floor(this.value)}`;
+    }
+
+    /**
+     * @getter  decimal
+     * @return  {String} Decimal part of this number
+     */
+    get decimal()
+    {
+        return (this.value % 1).toFixed(this.precision).substr(2);
+    }
+
+    /**
      * @override
      */
     _parseValue(value)
@@ -19,6 +50,11 @@ class AmjsDataTypesTypeNumber extends AmjsDataTypesBase
         }
 
         return super._parseValue(value);
+    }
+
+    toString()
+    {
+        return this.value.toFixed(this.precision);
     }
 }
 

@@ -139,3 +139,18 @@ const assert                = require('assert');
     delete values.pri;
     assert.equal(JSON.stringify(sut.toJSON()) === JSON.stringify(values), true, 'toJSON() returns expected object');
 }());
+
+(function toString()
+{
+    const sut = AmjsFactory.create('Object');
+    sut.foo = null;
+    sut.$propertyTypes = {
+        foo   : '*'
+    };
+    const values = {
+        foo : 1
+    };
+    sut._setProperties(values);
+    const asJSON = sut.toJSON();
+    assert.equal(sut.toString() === JSON.stringify(asJSON), true, 'toString returns the stringify value of toJSON');
+})();

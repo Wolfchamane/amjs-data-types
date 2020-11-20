@@ -3,19 +3,19 @@ const AmjsDataTypesNumber   = require('../../src/Number');
 const AmjsFactory           = require('@amjs/factory');
 const assert                = require('assert');
 
-function extendsBase()
+(function extendsBase()
 {
     const sut = new AmjsDataTypesNumber();
     assert.equal(sut instanceof AmjsDataTypesBase, true, 'AmjsDataTypesNumber extends AmjsDataTypesBase');
-}
+})();
 
-function isRegistered()
+(function isRegistered()
 {
     const sut = AmjsFactory.create('Number');
     assert.equal(sut instanceof AmjsDataTypesNumber, true, 'Is registered as "Number"');
-}
+})();
 
-function parseValue()
+(function parseValue()
 {
     [
         {
@@ -81,8 +81,13 @@ function parseValue()
             assert.equal(equals, true, `Value "${item.value}" is well parsed`);
         }
     );
-}
+})();
 
-extendsBase();
-isRegistered();
-parseValue();
+(function getters()
+{
+    const value = 1.50;
+    const sut = AmjsFactory.create('Number');
+    sut.value = value;
+    assert.equal(sut.integer === '1', true, `Integer part of ${value} is "1"`);
+    assert.equal(sut.decimal === '50', true, `Decimal part of ${value} is "50"`);
+})();

@@ -176,6 +176,14 @@ class AmjsDataTypesTypeObject extends AmjsDataTypesBase
 
         return json;
     }
+
+    /**
+     * @override
+     */
+    toString()
+    {
+        return JSON.stringify(this.toJSON());
+    }
 }
 
 AmjsDataTypesBase.register('Object', AmjsDataTypesTypeObject);
