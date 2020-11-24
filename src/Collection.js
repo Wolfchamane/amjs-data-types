@@ -32,6 +32,17 @@ class AmjsDataTypesCollection extends AmjsDataTypesArray
 
         return super._parseValue(values);
     }
+
+    /**
+     * Finds an element by a property value
+     * @param   {String}    prop    To find by
+     * @param   {String}    value   To match
+     * @return  {*|undefined} Result of finding over items
+     */
+    findBy(prop = '', value = '')
+    {
+        return this._call('find', item => `${item[prop]}` === value);
+    }
 }
 
 AmjsDataTypesArray.register('Collection', AmjsDataTypesCollection);
