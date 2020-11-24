@@ -43,7 +43,7 @@ class AmjsDataTypesArray extends AmjsDataTypesBase
     }
 
     /**
-     * Tries to call an array method over collection
+     * Tries to call an array method
      * @param   {String}    fn      To be called
      * @param   {*}         args    Method arguments
      * @return  {*|undefined}   Result of method or undefined in other case
@@ -59,7 +59,7 @@ class AmjsDataTypesArray extends AmjsDataTypesBase
     }
 
     /**
-     * Allows to iterate over collection items
+     * Allows to iterate items
      *
      * @return {Object} Iterator
      */
