@@ -1,6 +1,6 @@
 {
     "name": "@amjs/data-types",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "description": "Data types for your OOP javascript project",
     "scripts": {
         "format": "prettier --config .prettierrc --write 'src/**/*.m?js'",
@@ -18,7 +18,7 @@
         "data",
         "types"
     ],
-    "main": "index.js",
+    "main": "src/index.js",
     "author": "Arturo Martínez Díaz <arturo.mart.diaz@gmail.com>",
     "license": "MIT",
     "repository": {

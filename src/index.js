@@ -1,20 +1,20 @@
-const AmjsDataTypesArray = require('./src/Array.js');
-const AmjsDataTypesBase = require('./src/Base.js');
-const AmjsDataTypesBoolean = require('./src/Boolean.js');
-const AmjsDataTypesCollection = require('./src/Collection.js');
-const AmjsDataTypesDate = require('./src/Date.js');
-const AmjsDataTypesMoney = require('./src/Money.js');
-const AmjsDataTypesNumber = require('./src/Number.js');
-const AmjsDataTypesObject = require('./src/Object.js');
-const AmjsDataTypesPassword = require('./src/Password.js');
-const AmjsDataTypesString = require('./src/String.js');
+const AmjsDataTypesArray = require('./Array.js');
+const AmjsDataTypesBase = require('./Base.js');
+const AmjsDataTypesBoolean = require('./Boolean.js');
+const AmjsDataTypesCollection = require('./Collection.js');
+const AmjsDataTypesDate = require('./Date.js');
+const AmjsDataTypesMoney = require('./Money.js');
+const AmjsDataTypesNumber = require('./Number.js');
+const AmjsDataTypesObject = require('./Object.js');
+const AmjsDataTypesPassword = require('./Password.js');
+const AmjsDataTypesString = require('./String.js');
 
 /**
  * @NOTICE: File auto-generated. DO NOT modify this file.
  * @author  Arturo Martínez Díaz &lt;arturo.mart.diaz@gmail.com&gt;
- * @version 0.1.7
+ * @version 0.1.8
  * @license MIT
- * @created 2020-11-20T06:53:48.830Z
+ * @created 2020-11-24T07:00:41.366Z
  */
 module.exports = {
     AmjsDataTypesArray: AmjsDataTypesArray,
