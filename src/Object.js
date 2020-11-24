@@ -65,7 +65,7 @@ class AmjsDataTypesTypeObject extends AmjsDataTypesBase
      */
     _setProperties(values = {})
     {
-        this.$raw = JSON.parse(JSON.stringify(values));
+        this.$raw = this.$raw || JSON.parse(JSON.stringify(values));
 
         const parsed = {};
         Object.keys(values).forEach(
